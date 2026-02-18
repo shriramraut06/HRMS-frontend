@@ -1,0 +1,60 @@
+<div class="form-container">
+
+  <h2>Add Employee</h2>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="addEmployee()">
+
+    <!-- Employee ID -->
+    <div class="form-group">
+      <input type="text" formControlName="employee_id" placeholder="Employee ID">
+      <small class="error" *ngIf="employeeForm.get('employee_id')?.touched && employeeForm.get('employee_id')?.invalid">
+        <span *ngIf="employeeForm.get('employee_id')?.errors?.['required']">
+          Employee ID is required.
+        </span>
+        <span *ngIf="employeeForm.get('employee_id')?.errors?.['pattern']">
+          Employee ID must be numeric.
+        </span>
+      </small>
+    </div>
+
+    <!-- Full Name -->
+    <div class="form-group">
+      <input type="text" formControlName="full_name" placeholder="Full Name">
+      <small class="error" *ngIf="employeeForm.get('full_name')?.touched && employeeForm.get('full_name')?.invalid">
+        <span *ngIf="employeeForm.get('full_name')?.errors?.['required']">
+          Full Name is required.
+        </span>
+        <span *ngIf="employeeForm.get('full_name')?.errors?.['minlength']">
+          Minimum 3 characters required.
+        </span>
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <input type="email" formControlName="email" placeholder="Email (must be Gmail)">
+      <small class="error" *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid">
+        <span *ngIf="employeeForm.get('email')?.errors?.['required']">
+          Email is required.
+        </span>
+        <span *ngIf="employeeForm.get('email')?.errors?.['pattern']">
+          Only Gmail address allowed.
+        </span>
+      </small>
+    </div>
+
+    <!-- Department -->
+    <div class="form-group">
+      <input type="text" formControlName="department" placeholder="Department">
+      <small class="error" *ngIf="employeeForm.get('department')?.touched && employeeForm.get('department')?.invalid">
+        Department is required.
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="employeeForm.invalid">
+      Add Employee
+    </button>
+
+  </form>
+
+</div>

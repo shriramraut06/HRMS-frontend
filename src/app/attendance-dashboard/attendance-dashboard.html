@@ -1,0 +1,49 @@
+<div class="page-container">
+  <div class="header-row">
+    <h2>Attendance Dashboard</h2>
+    <button type="button" class="add-btn" (click)="openAddAttendance()">+ Add Attendance</button>
+  </div>
+
+  <div class="search-row">
+    <input placeholder="Search..." [(ngModel)]="searchText" />
+  </div>
+
+  <div class="table-card">
+    <table width="100%" cellpadding="8">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of paginatedAttendance">
+          <td>{{ r.employee_id }}</td>
+          <td>{{ r.date }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [ngClass]="{
+                present: r.status === 'Present',
+                absent: r.status === 'Absent'
+              }"
+            >
+              {{ r.status }}
+            </span>
+          </td>
+        </tr>
+
+        <tr *ngIf="paginatedAttendance.length === 0">
+          <td colspan="3" style="text-align:center;">No records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage() === 1">Prev</button>
+    <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage() === totalPages()">Next</button>
+  </div>
+</div>

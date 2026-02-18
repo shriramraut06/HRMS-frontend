@@ -1,0 +1,19 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="header-row" style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>{{ title() }}</h2>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button routerLink="/employees">Employee Dashboard</button>
+      <button routerLink="/attendance">Attendance Dashboard</button>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Router Outlet -->
+  <router-outlet></router-outlet>
+
+</div>

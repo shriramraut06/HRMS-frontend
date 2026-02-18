@@ -1,0 +1,71 @@
+<div class="page-container">
+
+  <!-- Header Row -->
+  <div class="header-row">
+    <h2>HRMS Lite (Angular)</h2>
+    <button type="button" class="add-btn" (click)="openAddEmployee()">
+      + Add Employee
+    </button>
+  </div>
+
+  <!-- Search -->
+  <div class="search-row">
+    <input
+      type="text"
+      placeholder="Search..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="currentPage = 1"
+    />
+  </div>
+
+  <!-- Employee Table -->
+  <h3>Employee List</h3>
+
+  <div class="table-card">
+    <table width="100%" cellpadding="8">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Department</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let emp of paginatedEmployees">
+          <td>{{ emp.employee_id }}</td>
+          <td>{{ emp.full_name }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.email }}</td>
+          <td>
+            <button class="delete-btn" (click)="deleteEmployee(emp.employee_id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="paginatedEmployees.length === 0">
+          <td colspan="5" style="text-align:center;">
+            No Employees Found
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">
+      Previous
+    </button>
+
+    <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages()">
+      Next
+    </button>
+  </div>
+
+</div>
