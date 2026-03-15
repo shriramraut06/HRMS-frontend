@@ -13,13 +13,16 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddEmployeeComponent {
 
-  employeeForm!: FormGroup;   // 🔥 Declare first
-  constructor(private fb: FormBuilder,
-  private http: HttpClient,
-  private dialogRef: MatDialogRef<AddEmployeeComponent>
+  API = 'https://hrml-backend.vercel.app/api/employees';
+
+  employeeForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private dialogRef: MatDialogRef<AddEmployeeComponent>
   ) {
 
-    // 🔥 Initialize inside constructor
     this.employeeForm = this.fb.group({
       employee_id: ['', [
         Validators.required,
@@ -39,29 +42,24 @@ export class AddEmployeeComponent {
   }
 
   addEmployee() {
-  if (this.employeeForm.valid) {
+
+    if (!this.employeeForm.valid) {
+      this.employeeForm.markAllAsTouched();
+      return;
+    }
 
     const employeeData = this.employeeForm.value;
 
-    this.http.post('https://hrml-backend.vercel.app/api/employees', employeeData)
-      .subscribe({
-        next: (res) => {
-          this.dialogRef.close({
-            success: true,
-            data: res
-          });
-        },
-        error: (err) => {
-          this.dialogRef.close({
-            success: false,
-            error: err
-          });
-        }
-      });
-
-  } else {
-    this.employeeForm.markAllAsTouched();
+    this.http.post(this.API, employeeData).subscribe({
+      next: (res) => {
+        console.log("Employee added:", res);
+        this.dialogRef.close({ success: true, data: res });
+      },
+      error: (err) => {
+        console.error("Add employee error:", err);
+        this.dialogRef.close({ success: false, error: err });
+      }
+    });
   }
-}
 
 }
