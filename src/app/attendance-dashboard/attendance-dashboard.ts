@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./attendance-dashboard.css']
 })
 export class AttendanceDashboardComponent {
-  API = 'https://hrml-backend.vercel.app/api/attendance/';
+  API = 'https://hrml-backend.vercel.app/api/attendance';
 
   // 🔹 Signals for reactive state
   attendances = signal<any[]>([]);
