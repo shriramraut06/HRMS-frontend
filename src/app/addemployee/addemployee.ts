@@ -43,7 +43,7 @@ export class AddEmployeeComponent {
 
     const employeeData = this.employeeForm.value;
 
-    this.http.post('https://hrml-backend.vercel.app/api/employees', employeeData)
+    this.http.post('https://hrml-backend.vercel.app/api/employees/', employeeData)
       .subscribe({
         next: (res) => {
           this.dialogRef.close({
