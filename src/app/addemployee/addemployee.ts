@@ -13,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AddEmployeeComponent {
 
-  API = 'https://hrml-backend.vercel.app/api/employees';
+  API = 'https://hrml-backend.vercel.app/api/employees/';
 
   employeeForm!: FormGroup;
 
