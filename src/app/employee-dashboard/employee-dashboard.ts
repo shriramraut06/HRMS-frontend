@@ -18,7 +18,7 @@ import { AddEmployeeComponent } from '../addemployee/addemployee';
 })
 export class EmployeeDashboard {
 
-  API = 'http://127.0.0.1:8000/api/employees/';
+  API = 'https://hrml-backend.vercel.app/api/employees/';
   employees = signal<any[]>([]);
 
   employee = {
