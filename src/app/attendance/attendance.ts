@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./attendance.css'],
 })
 export class AttendanceComponent {
-  API = 'https://hrml-backend.vercel.app/api/attendance/';
+  API = 'https://hrml-backend.vercel.app/api/attendance';
   attendanceForm: FormGroup;
 
   constructor(
