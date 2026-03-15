@@ -18,9 +18,9 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./attendance-dashboard.css']
 })
 export class AttendanceDashboardComponent {
+
   API = 'https://hrml-backend.vercel.app/api/attendance';
 
-  // 🔹 Signals for reactive state
   attendances = signal<any[]>([]);
   searchText = signal('');
   currentPage = signal(1);
@@ -32,15 +32,13 @@ export class AttendanceDashboardComponent {
     this.loadAttendance();
   }
 
-  // 🔹 Load all attendance records
   loadAttendance() {
     this.http.get<any[]>(this.API).subscribe({
       next: (data) => this.attendances.set(data),
-      error: (err) => alert('Failed to load attendance')
+      error: () => alert('Failed to load attendance')
     });
   }
 
-  // 🔹 Open Add Attendance modal
   openAddAttendance() {
     const dialogRef = this.dialog.open(AttendanceComponent, {
       width: '400px'
@@ -48,12 +46,11 @@ export class AttendanceDashboardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result?.success) {
-        this.loadAttendance(); // Reload on successful add
+        this.loadAttendance();
       }
     });
   }
 
-  // 🔹 Filtered attendances based on searchText
   get filteredAttendance() {
     return this.attendances()
       .filter(r =>
@@ -62,22 +59,23 @@ export class AttendanceDashboardComponent {
       );
   }
 
-  // 🔹 Paginated attendances
   get paginatedAttendance() {
     const start = (this.currentPage() - 1) * this.itemsPerPage();
     return this.filteredAttendance.slice(start, start + this.itemsPerPage());
   }
 
-  // 🔹 Pagination helpers
   totalPages() {
     return Math.ceil(this.filteredAttendance.length / this.itemsPerPage()) || 1;
   }
 
   nextPage() {
-    if (this.currentPage() < this.totalPages()) this.currentPage.set(this.currentPage() + 1);
+    if (this.currentPage() < this.totalPages())
+      this.currentPage.set(this.currentPage() + 1);
   }
 
   prevPage() {
-    if (this.currentPage() > 1) this.currentPage.set(this.currentPage() - 1);
+    if (this.currentPage() > 1)
+      this.currentPage.set(this.currentPage() - 1);
   }
+
 }
